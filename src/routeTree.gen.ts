@@ -10,33 +10,89 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AdminIndexRouteImport } from './routes/admin.index'
+import { Route as MateriMateriIdRouteImport } from './routes/materi.$materiId'
+import { Route as KelasKelasIdRouteImport } from './routes/kelas.$kelasId'
+import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminIndexRoute = AdminIndexRouteImport.update({
+  id: '/admin/',
+  path: '/admin/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MateriMateriIdRoute = MateriMateriIdRouteImport.update({
+  id: '/materi/$materiId',
+  path: '/materi/$materiId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const KelasKelasIdRoute = KelasKelasIdRouteImport.update({
+  id: '/kelas/$kelasId',
+  path: '/kelas/$kelasId',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AdminDashboardRoute = AdminDashboardRouteImport.update({
+  id: '/admin/dashboard',
+  path: '/admin/dashboard',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/kelas/$kelasId': typeof KelasKelasIdRoute
+  '/materi/$materiId': typeof MateriMateriIdRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/kelas/$kelasId': typeof KelasKelasIdRoute
+  '/materi/$materiId': typeof MateriMateriIdRoute
+  '/admin': typeof AdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/admin/dashboard': typeof AdminDashboardRoute
+  '/kelas/$kelasId': typeof KelasKelasIdRoute
+  '/materi/$materiId': typeof MateriMateriIdRoute
+  '/admin/': typeof AdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/'
+  fullPaths:
+    | '/'
+    | '/admin/dashboard'
+    | '/kelas/$kelasId'
+    | '/materi/$materiId'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
-  to: '/'
-  id: '__root__' | '/'
+  to:
+    | '/'
+    | '/admin/dashboard'
+    | '/kelas/$kelasId'
+    | '/materi/$materiId'
+    | '/admin'
+  id:
+    | '__root__'
+    | '/'
+    | '/admin/dashboard'
+    | '/kelas/$kelasId'
+    | '/materi/$materiId'
+    | '/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  AdminDashboardRoute: typeof AdminDashboardRoute
+  KelasKelasIdRoute: typeof KelasKelasIdRoute
+  MateriMateriIdRoute: typeof MateriMateriIdRoute
+  AdminIndexRoute: typeof AdminIndexRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -48,11 +104,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/': {
+      id: '/admin/'
+      path: '/admin'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AdminIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/materi/$materiId': {
+      id: '/materi/$materiId'
+      path: '/materi/$materiId'
+      fullPath: '/materi/$materiId'
+      preLoaderRoute: typeof MateriMateriIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/kelas/$kelasId': {
+      id: '/kelas/$kelasId'
+      path: '/kelas/$kelasId'
+      fullPath: '/kelas/$kelasId'
+      preLoaderRoute: typeof KelasKelasIdRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/admin/dashboard': {
+      id: '/admin/dashboard'
+      path: '/admin/dashboard'
+      fullPath: '/admin/dashboard'
+      preLoaderRoute: typeof AdminDashboardRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  AdminDashboardRoute: AdminDashboardRoute,
+  KelasKelasIdRoute: KelasKelasIdRoute,
+  MateriMateriIdRoute: MateriMateriIdRoute,
+  AdminIndexRoute: AdminIndexRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
