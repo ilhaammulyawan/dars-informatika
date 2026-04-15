@@ -14,7 +14,89 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      classes: {
+        Row: {
+          created_at: string
+          description: string | null
+          grade: string
+          icon: string | null
+          id: string
+          name: string
+          sort_order: number | null
+        }
+        Insert: {
+          created_at?: string
+          description?: string | null
+          grade: string
+          icon?: string | null
+          id?: string
+          name: string
+          sort_order?: number | null
+        }
+        Update: {
+          created_at?: string
+          description?: string | null
+          grade?: string
+          icon?: string | null
+          id?: string
+          name?: string
+          sort_order?: number | null
+        }
+        Relationships: []
+      }
+      materials: {
+        Row: {
+          category: string | null
+          class_id: string
+          content: string | null
+          created_at: string
+          description: string | null
+          file_url: string | null
+          id: string
+          is_published: boolean | null
+          sort_order: number | null
+          title: string
+          updated_at: string
+          video_url: string | null
+        }
+        Insert: {
+          category?: string | null
+          class_id: string
+          content?: string | null
+          created_at?: string
+          description?: string | null
+          file_url?: string | null
+          id?: string
+          is_published?: boolean | null
+          sort_order?: number | null
+          title: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Update: {
+          category?: string | null
+          class_id?: string
+          content?: string | null
+          created_at?: string
+          description?: string | null
+          file_url?: string | null
+          id?: string
+          is_published?: boolean | null
+          sort_order?: number | null
+          title?: string
+          updated_at?: string
+          video_url?: string | null
+        }
+        Relationships: [
+          {
+            foreignKeyName: "materials_class_id_fkey"
+            columns: ["class_id"]
+            isOneToOne: false
+            referencedRelation: "classes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
