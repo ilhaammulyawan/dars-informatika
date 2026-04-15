@@ -105,7 +105,7 @@ export function RichTextEditor({ content, onChange }: RichTextEditorProps) {
           <LinkIcon className="h-4 w-4" />
         </ToolbarButton>
         <ToolbarButton onClick={addYoutube} title="Embed YouTube">
-          <YoutubeIcon className="h-4 w-4" />
+          <Play className="h-4 w-4" />
         </ToolbarButton>
         <div className="mx-1 w-px bg-border" />
         <ToolbarButton onClick={() => editor.chain().focus().undo().run()} title="Undo">
