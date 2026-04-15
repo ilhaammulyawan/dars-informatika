@@ -4,7 +4,7 @@ import LinkExtension from "@tiptap/extension-link";
 import Youtube from "@tiptap/extension-youtube";
 import {
   Bold, Italic, Heading1, Heading2, Heading3,
-  List, ListOrdered, Quote, Code, Minus, Link as LinkIcon, Youtube as YoutubeIcon,
+  List, ListOrdered, Quote, Code, Minus, Link as LinkIcon, Play,
   Undo, Redo,
 } from "lucide-react";
 
