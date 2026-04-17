@@ -102,7 +102,7 @@ function Index() {
       {/* Footer */}
       <footer className="border-t border-border bg-card px-4 py-8">
         <div className="mx-auto max-w-5xl text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} InfoMateri. Platform Materi Informatika.
+          © {new Date().getFullYear()} InfoMateri — Dibuat oleh Guru Informatika
         </div>
       </footer>
     </div>
