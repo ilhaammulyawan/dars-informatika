@@ -14,7 +14,7 @@ import {
 export const Route = createFileRoute("/admin/dashboard")({
   component: AdminDashboard,
   head: () => ({
-    meta: [{ title: "Dashboard Admin — InfoMateri" }, { name: "robots", content: "noindex" }],
+    meta: [{ title: "Dashboard Admin — Dars Informatika" }, { name: "robots", content: "noindex" }],
   }),
 });
 
@@ -169,7 +169,7 @@ function AdminDashboard() {
               <div className="flex h-8 w-8 items-center justify-center rounded-lg bg-primary">
                 <BookOpen className="h-4 w-4 text-primary-foreground" />
               </div>
-              <span className="text-sm font-bold text-foreground">InfoMateri</span>
+              <span className="text-sm font-bold text-foreground">Dars Informatika</span>
             </Link>
             <span className="rounded bg-accent px-2 py-0.5 text-xs font-medium text-accent-foreground">Admin</span>
           </div>

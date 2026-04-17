@@ -9,9 +9,9 @@ export const Route = createFileRoute("/")({
   component: Index,
   head: () => ({
     meta: [
-      { title: "InfoMateri — Platform Materi Informatika" },
+      { title: "Dars Informatika — Platform Materi Informatika" },
       { name: "description", content: "Akses materi pelajaran informatika untuk semua kelas. Belajar lebih mudah dan terstruktur." },
-      { property: "og:title", content: "InfoMateri — Platform Materi Informatika" },
+      { property: "og:title", content: "Dars Informatika — Platform Materi Informatika" },
       { property: "og:description", content: "Akses materi pelajaran informatika untuk semua kelas." },
     ],
   }),
@@ -102,7 +102,7 @@ function Index() {
       {/* Footer */}
       <footer className="border-t border-border bg-card px-4 py-8">
         <div className="mx-auto max-w-5xl text-center text-sm text-muted-foreground">
-          © {new Date().getFullYear()} InfoMateri — Dibuat oleh Guru Informatika
+          © {new Date().getFullYear()} Dars Informatika — Dibuat oleh Guru Informatika
         </div>
       </footer>
     </div>
