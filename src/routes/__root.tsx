@@ -29,14 +29,18 @@ export const Route = createRootRoute({
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
+      { title: "Belajar Informatika" },
+      { name: "description", content: "Pusat Materi Pembelajaran Informatika SMA Riyadhussholihiin" },
       { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { property: "og:title", content: "Belajar Informatika" },
+      { property: "og:description", content: "Pusat Materi Pembelajaran Informatika SMA Riyadhussholihiin" },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
       { name: "twitter:site", content: "@Lovable" },
+      { name: "twitter:title", content: "Belajar Informatika" },
+      { name: "twitter:description", content: "Pusat Materi Pembelajaran Informatika SMA Riyadhussholihiin" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/63359779-18ae-430d-8e23-4b04b11d6039" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/63359779-18ae-430d-8e23-4b04b11d6039" },
     ],
     links: [
       {
