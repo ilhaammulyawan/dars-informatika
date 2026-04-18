@@ -131,7 +131,7 @@ export interface TeacherProfile {
   email: string | null;
   phone: string | null;
   photo_url: string | null;
-  extras: Record<string, unknown> | null;
+  extras: unknown;
   created_at: string;
   updated_at: string;
 }
