@@ -97,6 +97,48 @@ export type Database = {
           },
         ]
       }
+      teacher_profile: {
+        Row: {
+          bio: string | null
+          created_at: string
+          education: string | null
+          email: string | null
+          extras: Json | null
+          full_name: string
+          id: string
+          phone: string | null
+          photo_url: string | null
+          position: string | null
+          updated_at: string
+        }
+        Insert: {
+          bio?: string | null
+          created_at?: string
+          education?: string | null
+          email?: string | null
+          extras?: Json | null
+          full_name: string
+          id?: string
+          phone?: string | null
+          photo_url?: string | null
+          position?: string | null
+          updated_at?: string
+        }
+        Update: {
+          bio?: string | null
+          created_at?: string
+          education?: string | null
+          email?: string | null
+          extras?: Json | null
+          full_name?: string
+          id?: string
+          phone?: string | null
+          photo_url?: string | null
+          position?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
