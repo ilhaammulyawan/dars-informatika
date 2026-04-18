@@ -4,7 +4,7 @@ import { PublicHeader } from "@/components/PublicHeader";
 import { ClassCard } from "@/components/ClassCard";
 import { TeacherProfile } from "@/components/TeacherProfile";
 import { getClasses, type ClassItem } from "@/lib/supabase-helpers";
-import { BookOpen, GraduationCap, Sparkles } from "lucide-react";
+import { BookOpen, GraduationCap, Sparkles, Code2, Lightbulb, Rocket, Target } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -66,8 +66,37 @@ function Index() {
         <div className="absolute -bottom-1 left-0 right-0 h-8 bg-gradient-to-t from-background to-transparent" />
       </section>
 
-      {/* Teacher profile */}
-      <TeacherProfile />
+      {/* Why Learn Informatics Here */}
+      <section className="mx-auto max-w-5xl px-4 py-12">
+        <div className="text-center">
+          <h2 className="text-2xl font-bold text-foreground sm:text-3xl">
+            Kenapa Belajar Informatika di Sini?
+          </h2>
+          <p className="mx-auto mt-3 max-w-2xl text-sm text-muted-foreground sm:text-base">
+            Platform yang dirancang khusus untuk memudahkan siswa memahami dunia teknologi dengan pendekatan yang menyenangkan.
+          </p>
+        </div>
+
+        <div className="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {[
+            { icon: Code2, title: "Materi Terstruktur", desc: "Disusun rapi per kelas dan topik agar mudah diikuti dari dasar." },
+            { icon: Lightbulb, title: "Konsep Mudah Dipahami", desc: "Penjelasan sederhana dilengkapi contoh dan video pembelajaran." },
+            { icon: Rocket, title: "Akses Kapan Saja", desc: "Belajar fleksibel di mana saja dan kapan saja, gratis untuk semua siswa." },
+            { icon: Target, title: "Siap Hadapi Era Digital", desc: "Membekali siswa dengan kompetensi informatika untuk masa depan." },
+          ].map((item) => (
+            <div
+              key={item.title}
+              className="rounded-xl border border-border bg-card p-5 shadow-sm transition-shadow hover:shadow-md"
+            >
+              <div className="inline-flex h-10 w-10 items-center justify-center rounded-lg bg-primary/10 text-primary">
+                <item.icon className="h-5 w-5" />
+              </div>
+              <h3 className="mt-3 font-semibold text-foreground">{item.title}</h3>
+              <p className="mt-1.5 text-sm text-muted-foreground">{item.desc}</p>
+            </div>
+          ))}
+        </div>
+      </section>
 
       {/* Class List */}
       <section className="mx-auto max-w-5xl px-4 py-12">
@@ -102,6 +131,9 @@ function Index() {
           </div>
         )}
       </section>
+
+      {/* Teacher profile */}
+      <TeacherProfile />
 
       {/* Footer */}
       <footer className="border-t border-border bg-card px-4 py-8">
