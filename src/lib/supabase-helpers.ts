@@ -149,11 +149,19 @@ export async function getTeacherProfile(): Promise<TeacherProfile | null> {
 
 export async function upsertTeacherProfile(profile: Partial<TeacherProfile> & { id?: string }) {
   if (profile.id) {
-    const { id, ...rest } = profile;
+    const updatePayload = {
+      full_name: profile.full_name,
+      position: profile.position,
+      education: profile.education,
+      bio: profile.bio,
+      email: profile.email,
+      phone: profile.phone,
+      photo_url: profile.photo_url,
+    };
     const { data, error } = await supabase
       .from("teacher_profile")
-      .update(rest)
-      .eq("id", id)
+      .update(updatePayload)
+      .eq("id", profile.id)
       .select()
       .single();
     if (error) throw error;
