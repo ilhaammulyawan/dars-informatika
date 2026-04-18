@@ -39,8 +39,8 @@ export const Route = createRootRoute({
       { name: "twitter:site", content: "@Lovable" },
       { name: "twitter:title", content: "Belajar Informatika" },
       { name: "twitter:description", content: "Pusat Materi Pembelajaran Informatika SMA Riyadhussholihiin" },
-      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/63359779-18ae-430d-8e23-4b04b11d6039" },
-      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/63359779-18ae-430d-8e23-4b04b11d6039" },
+      { property: "og:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/2a2cdff7-653a-470b-88a0-a51f2fe8b02b" },
+      { name: "twitter:image", content: "https://storage.googleapis.com/gpt-engineer-file-uploads/attachments/og-images/2a2cdff7-653a-470b-88a0-a51f2fe8b02b" },
     ],
     links: [
       {
