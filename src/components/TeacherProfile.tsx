@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { GraduationCap, Mail, Phone, BookOpenCheck } from "lucide-react";
+import { GraduationCap, Award, Users, BookOpen } from "lucide-react";
 import { getTeacherProfile, type TeacherProfile as TP } from "@/lib/supabase-helpers";
 
 export function TeacherProfile() {
@@ -14,13 +14,22 @@ export function TeacherProfile() {
 
   if (loading || !profile) return null;
 
+  // Parse position into list items (split by comma)
+  const positionItems = profile.position
+    ? profile.position.split(",").map((s) => s.trim()).filter(Boolean)
+    : [];
+
+  // Assign icons cyclically
+  const icons = [Award, Users, BookOpen];
+
   return (
     <section className="mx-auto max-w-5xl px-4 py-12">
-      <div className="overflow-hidden rounded-2xl border border-border bg-card shadow-sm">
-        <div className="grid gap-0 sm:grid-cols-[200px_1fr]">
+      <h2 className="mb-6 text-2xl font-bold text-foreground">Tentang Pengajar</h2>
+      <div className="overflow-hidden rounded-2xl border border-border bg-card p-6 shadow-sm sm:p-8">
+        <div className="grid gap-6 sm:grid-cols-[200px_1fr] sm:gap-8">
           {/* Photo */}
-          <div className="relative bg-gradient-to-br from-hero-gradient-from to-hero-gradient-to p-6 sm:p-4">
-            <div className="mx-auto h-32 w-32 overflow-hidden rounded-full ring-4 ring-card sm:h-40 sm:w-40">
+          <div className="flex justify-center sm:block">
+            <div className="h-48 w-48 overflow-hidden rounded-2xl border border-border shadow-sm sm:h-full sm:w-full">
               {profile.photo_url ? (
                 <img
                   src={profile.photo_url}
@@ -29,7 +38,7 @@ export function TeacherProfile() {
                   loading="lazy"
                 />
               ) : (
-                <div className="flex h-full w-full items-center justify-center bg-muted text-4xl">
+                <div className="flex h-full w-full items-center justify-center bg-muted text-6xl">
                   👨‍🏫
                 </div>
               )}
@@ -37,44 +46,37 @@ export function TeacherProfile() {
           </div>
 
           {/* Info */}
-          <div className="p-6">
-            <div className="mb-1 inline-flex items-center gap-1.5 rounded-full bg-accent px-2.5 py-0.5 text-xs font-medium text-accent-foreground">
-              <BookOpenCheck className="h-3 w-3" />
-              Pengajar
-            </div>
-            <h2 className="mt-2 text-xl font-bold text-foreground sm:text-2xl">
+          <div>
+            <h3 className="text-2xl font-bold text-foreground sm:text-3xl">
               {profile.full_name}
-            </h2>
-            {profile.position && (
-              <p className="mt-1 text-sm text-muted-foreground">{profile.position}</p>
-            )}
+            </h3>
+            <p className="mt-1 text-base font-medium text-primary">
+              Guru Informatika
+            </p>
+
+            <ul className="mt-4 space-y-2.5">
+              {profile.education && (
+                <li className="flex items-center gap-2.5 text-sm text-foreground/85">
+                  <GraduationCap className="h-4 w-4 shrink-0 text-primary" />
+                  <span>{profile.education}</span>
+                </li>
+              )}
+              {positionItems.map((item, idx) => {
+                const Icon = icons[idx % icons.length];
+                return (
+                  <li key={idx} className="flex items-center gap-2.5 text-sm text-foreground/85">
+                    <Icon className="h-4 w-4 shrink-0 text-primary" />
+                    <span className="capitalize">{item}</span>
+                  </li>
+                );
+              })}
+            </ul>
 
             {profile.bio && (
-              <p className="mt-3 text-sm leading-relaxed text-foreground/80">
+              <p className="mt-5 text-sm leading-relaxed text-muted-foreground">
                 {profile.bio}
               </p>
             )}
-
-            <div className="mt-4 flex flex-wrap gap-x-5 gap-y-2 text-xs text-muted-foreground">
-              {profile.education && (
-                <div className="flex items-center gap-1.5">
-                  <GraduationCap className="h-3.5 w-3.5" />
-                  <span>{profile.education}</span>
-                </div>
-              )}
-              {profile.email && (
-                <a href={`mailto:${profile.email}`} className="flex items-center gap-1.5 hover:text-foreground">
-                  <Mail className="h-3.5 w-3.5" />
-                  <span>{profile.email}</span>
-                </a>
-              )}
-              {profile.phone && (
-                <div className="flex items-center gap-1.5">
-                  <Phone className="h-3.5 w-3.5" />
-                  <span>{profile.phone}</span>
-                </div>
-              )}
-            </div>
           </div>
         </div>
       </div>
