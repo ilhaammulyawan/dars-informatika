@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { PublicHeader } from "@/components/PublicHeader";
 import { ClassCard } from "@/components/ClassCard";
+import { TeacherProfile } from "@/components/TeacherProfile";
 import { getClasses, type ClassItem } from "@/lib/supabase-helpers";
 import { BookOpen, GraduationCap, Sparkles } from "lucide-react";
 
@@ -64,6 +65,9 @@ function Index() {
         </div>
         <div className="absolute -bottom-1 left-0 right-0 h-8 bg-gradient-to-t from-background to-transparent" />
       </section>
+
+      {/* Teacher profile */}
+      <TeacherProfile />
 
       {/* Class List */}
       <section className="mx-auto max-w-5xl px-4 py-12">

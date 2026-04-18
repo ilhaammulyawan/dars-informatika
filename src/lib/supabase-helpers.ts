@@ -121,6 +121,78 @@ export async function deleteMaterial(id: string) {
   if (error) throw error;
 }
 
+// Teacher profile
+export interface TeacherProfile {
+  id: string;
+  full_name: string;
+  position: string | null;
+  education: string | null;
+  bio: string | null;
+  email: string | null;
+  phone: string | null;
+  photo_url: string | null;
+  extras: unknown;
+  created_at: string;
+  updated_at: string;
+}
+
+export async function getTeacherProfile(): Promise<TeacherProfile | null> {
+  const { data, error } = await supabase
+    .from("teacher_profile")
+    .select("*")
+    .order("created_at", { ascending: true })
+    .limit(1)
+    .maybeSingle();
+  if (error) return null;
+  return data as TeacherProfile | null;
+}
+
+export async function upsertTeacherProfile(profile: Partial<TeacherProfile> & { id?: string }) {
+  if (profile.id) {
+    const updatePayload = {
+      full_name: profile.full_name,
+      position: profile.position,
+      education: profile.education,
+      bio: profile.bio,
+      email: profile.email,
+      phone: profile.phone,
+      photo_url: profile.photo_url,
+    };
+    const { data, error } = await supabase
+      .from("teacher_profile")
+      .update(updatePayload)
+      .eq("id", profile.id)
+      .select()
+      .single();
+    if (error) throw error;
+    return data;
+  }
+  const { data, error } = await supabase
+    .from("teacher_profile")
+    .insert({
+      full_name: profile.full_name || "Pengajar",
+      position: profile.position,
+      education: profile.education,
+      bio: profile.bio,
+      email: profile.email,
+      phone: profile.phone,
+      photo_url: profile.photo_url,
+    })
+    .select()
+    .single();
+  if (error) throw error;
+  return data;
+}
+
+export async function uploadTeacherPhoto(file: File): Promise<string> {
+  const fileExt = file.name.split(".").pop();
+  const fileName = `teacher/${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
+  const { error } = await supabase.storage.from("materials").upload(fileName, file);
+  if (error) throw error;
+  const { data: urlData } = supabase.storage.from("materials").getPublicUrl(fileName);
+  return urlData.publicUrl;
+}
+
 export async function uploadFile(file: File): Promise<string> {
   const fileExt = file.name.split(".").pop();
   const fileName = `${Date.now()}-${Math.random().toString(36).substring(7)}.${fileExt}`;
