@@ -4,11 +4,11 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   getClasses, getAllMaterials, createClass, updateClass, deleteClass,
   createMaterial, updateMaterial, deleteMaterial, uploadFile,
-  type ClassItem, type MaterialItem,
+  type ClassItem, type MaterialItem, type AttachmentLink,
 } from "@/lib/supabase-helpers";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import {
-  BookOpen, Plus, Pencil, Trash2, LogOut, Save, X, Upload, Eye, UserCog,
+  BookOpen, Plus, Pencil, Trash2, LogOut, Save, X, Upload, Eye, UserCog, Link2,
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/dashboard")({
@@ -46,6 +46,7 @@ function AdminDashboard() {
   const [matCategory, setMatCategory] = useState("");
   const [matVideoUrl, setMatVideoUrl] = useState("");
   const [matFileUrl, setMatFileUrl] = useState("");
+  const [matAttachments, setMatAttachments] = useState<AttachmentLink[]>([]);
   const [matPublished, setMatPublished] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -102,14 +103,14 @@ function AdminDashboard() {
   // Material CRUD
   const openCreateMat = () => {
     setMatTitle(""); setMatDesc(""); setMatContent(""); setMatClassId(classes[0]?.id || "");
-    setMatCategory(""); setMatVideoUrl(""); setMatFileUrl(""); setMatPublished(true);
+    setMatCategory(""); setMatVideoUrl(""); setMatFileUrl(""); setMatAttachments([]); setMatPublished(true);
     setEditingMat(null); setMatModal("create");
   };
 
   const openEditMat = (m: MaterialItem) => {
     setMatTitle(m.title); setMatDesc(m.description || ""); setMatContent(m.content || "");
     setMatClassId(m.class_id); setMatCategory(m.category || ""); setMatVideoUrl(m.video_url || "");
-    setMatFileUrl(m.file_url || ""); setMatPublished(m.is_published ?? true);
+    setMatFileUrl(m.file_url || ""); setMatAttachments(m.attachments || []); setMatPublished(m.is_published ?? true);
     setEditingMat(m); setMatModal("edit");
   };
 
@@ -128,10 +129,14 @@ function AdminDashboard() {
 
   const saveMaterial = async () => {
     setSaving(true);
+    const cleanAttachments = matAttachments
+      .map((a) => ({ label: a.label.trim(), url: a.url.trim() }))
+      .filter((a) => a.url);
     const payload = {
       title: matTitle, description: matDesc, content: matContent,
       class_id: matClassId, category: matCategory || undefined,
       video_url: matVideoUrl || undefined, file_url: matFileUrl || undefined,
+      attachments: cleanAttachments,
       is_published: matPublished,
     };
     if (matModal === "create") {
