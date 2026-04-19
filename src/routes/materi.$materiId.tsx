@@ -87,17 +87,9 @@ function MateriPage() {
           <p className="mt-4 text-muted-foreground leading-relaxed">{material.description}</p>
         )}
 
-        {/* Content */}
-        {material.content && (
-          <div
-            className="material-content mt-8 border-t border-border pt-8"
-            dangerouslySetInnerHTML={{ __html: material.content }}
-          />
-        )}
-
         {/* Video embed */}
         {material.video_url && (
-          <div className="mt-8 border-t border-border pt-8">
+          <div className="mt-8">
             <h2 className="mb-3 text-sm font-semibold text-foreground">Video Pembelajaran</h2>
             <div className="relative w-full overflow-hidden rounded-xl" style={{ paddingBottom: "56.25%" }}>
               <iframe
@@ -109,6 +101,14 @@ function MateriPage() {
               />
             </div>
           </div>
+        )}
+
+        {/* Content */}
+        {material.content && (
+          <div
+            className="material-content mt-8 border-t border-border pt-8"
+            dangerouslySetInnerHTML={{ __html: material.content }}
+          />
         )}
 
         {/* File download */}
