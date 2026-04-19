@@ -10,6 +10,11 @@ export interface ClassItem {
   created_at: string;
 }
 
+export interface AttachmentLink {
+  label: string;
+  url: string;
+}
+
 export interface MaterialItem {
   id: string;
   class_id: string;
@@ -21,6 +26,7 @@ export interface MaterialItem {
   video_url: string | null;
   is_published: boolean | null;
   sort_order: number | null;
+  attachments: AttachmentLink[] | null;
   created_at: string;
   updated_at: string;
 }
@@ -104,6 +110,7 @@ export async function createMaterial(material: {
   file_url?: string;
   video_url?: string;
   is_published?: boolean;
+  attachments?: AttachmentLink[];
 }) {
   const { data, error } = await supabase.from("materials").insert(material).select().single();
   if (error) throw error;
