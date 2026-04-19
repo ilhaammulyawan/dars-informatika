@@ -46,6 +46,7 @@ export type Database = {
       }
       materials: {
         Row: {
+          attachments: Json
           category: string | null
           class_id: string
           content: string | null
@@ -60,6 +61,7 @@ export type Database = {
           video_url: string | null
         }
         Insert: {
+          attachments?: Json
           category?: string | null
           class_id: string
           content?: string | null
@@ -74,6 +76,7 @@ export type Database = {
           video_url?: string | null
         }
         Update: {
+          attachments?: Json
           category?: string | null
           class_id?: string
           content?: string | null

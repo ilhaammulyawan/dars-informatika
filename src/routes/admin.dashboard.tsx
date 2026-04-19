@@ -4,11 +4,11 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   getClasses, getAllMaterials, createClass, updateClass, deleteClass,
   createMaterial, updateMaterial, deleteMaterial, uploadFile,
-  type ClassItem, type MaterialItem,
+  type ClassItem, type MaterialItem, type AttachmentLink,
 } from "@/lib/supabase-helpers";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import {
-  BookOpen, Plus, Pencil, Trash2, LogOut, Save, X, Upload, Eye, UserCog,
+  BookOpen, Plus, Pencil, Trash2, LogOut, Save, X, Upload, Eye, UserCog, Link2,
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/dashboard")({
@@ -46,6 +46,7 @@ function AdminDashboard() {
   const [matCategory, setMatCategory] = useState("");
   const [matVideoUrl, setMatVideoUrl] = useState("");
   const [matFileUrl, setMatFileUrl] = useState("");
+  const [matAttachments, setMatAttachments] = useState<AttachmentLink[]>([]);
   const [matPublished, setMatPublished] = useState(true);
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
@@ -102,14 +103,14 @@ function AdminDashboard() {
   // Material CRUD
   const openCreateMat = () => {
     setMatTitle(""); setMatDesc(""); setMatContent(""); setMatClassId(classes[0]?.id || "");
-    setMatCategory(""); setMatVideoUrl(""); setMatFileUrl(""); setMatPublished(true);
+    setMatCategory(""); setMatVideoUrl(""); setMatFileUrl(""); setMatAttachments([]); setMatPublished(true);
     setEditingMat(null); setMatModal("create");
   };
 
   const openEditMat = (m: MaterialItem) => {
     setMatTitle(m.title); setMatDesc(m.description || ""); setMatContent(m.content || "");
     setMatClassId(m.class_id); setMatCategory(m.category || ""); setMatVideoUrl(m.video_url || "");
-    setMatFileUrl(m.file_url || ""); setMatPublished(m.is_published ?? true);
+    setMatFileUrl(m.file_url || ""); setMatAttachments(m.attachments || []); setMatPublished(m.is_published ?? true);
     setEditingMat(m); setMatModal("edit");
   };
 
@@ -128,10 +129,14 @@ function AdminDashboard() {
 
   const saveMaterial = async () => {
     setSaving(true);
+    const cleanAttachments = matAttachments
+      .map((a) => ({ label: a.label.trim(), url: a.url.trim() }))
+      .filter((a) => a.url);
     const payload = {
       title: matTitle, description: matDesc, content: matContent,
       class_id: matClassId, category: matCategory || undefined,
       video_url: matVideoUrl || undefined, file_url: matFileUrl || undefined,
+      attachments: cleanAttachments,
       is_published: matPublished,
     };
     if (matModal === "create") {
@@ -392,6 +397,57 @@ function AdminDashboard() {
                     </div>
                   )}
                 </div>
+              </div>
+              <div>
+                <div className="mb-1 flex items-center justify-between">
+                  <label className="block text-sm font-medium text-foreground">Tautan File / Link Tambahan</label>
+                  <button
+                    type="button"
+                    onClick={() => setMatAttachments([...matAttachments, { label: "", url: "" }])}
+                    className="flex items-center gap-1 rounded-md border border-input bg-background px-2 py-1 text-xs font-medium text-foreground hover:bg-accent"
+                  >
+                    <Plus className="h-3 w-3" /> Tambah Tautan
+                  </button>
+                </div>
+                {matAttachments.length === 0 ? (
+                  <p className="text-xs text-muted-foreground">Belum ada tautan. Klik "Tambah Tautan" untuk menambahkan link Google Drive, dokumen, dsb.</p>
+                ) : (
+                  <div className="space-y-2">
+                    {matAttachments.map((att, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <Link2 className="h-4 w-4 shrink-0 text-muted-foreground" />
+                        <input
+                          value={att.label}
+                          onChange={(e) => {
+                            const next = [...matAttachments];
+                            next[idx] = { ...next[idx], label: e.target.value };
+                            setMatAttachments(next);
+                          }}
+                          placeholder="Label (opsional)"
+                          className="h-9 w-1/3 rounded-lg border border-input bg-background px-2 text-sm"
+                        />
+                        <input
+                          value={att.url}
+                          onChange={(e) => {
+                            const next = [...matAttachments];
+                            next[idx] = { ...next[idx], url: e.target.value };
+                            setMatAttachments(next);
+                          }}
+                          placeholder="https://..."
+                          className="h-9 flex-1 rounded-lg border border-input bg-background px-2 text-sm"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setMatAttachments(matAttachments.filter((_, i) => i !== idx))}
+                          className="rounded-md p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                          title="Hapus tautan"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
               <div className="flex items-center gap-2">
                 <input type="checkbox" id="published" checked={matPublished} onChange={(e) => setMatPublished(e.target.checked)} className="h-4 w-4 rounded border-input accent-primary" />

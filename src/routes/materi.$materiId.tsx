@@ -2,7 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { PublicHeader } from "@/components/PublicHeader";
 import { getMaterialById, getClassById, type MaterialItem, type ClassItem } from "@/lib/supabase-helpers";
-import { ArrowLeft, Download, Calendar } from "lucide-react";
+import { ArrowLeft, Download, Calendar, ExternalLink } from "lucide-react";
 
 export const Route = createFileRoute("/materi/$materiId")({
   component: MateriPage,
@@ -114,6 +114,29 @@ function MateriPage() {
               <Download className="h-4 w-4" />
               Download File
             </a>
+          </div>
+        )}
+
+        {/* Attachment links */}
+        {material.attachments && material.attachments.length > 0 && (
+          <div className="mt-6 rounded-xl border border-border bg-card p-5">
+            <h2 className="text-sm font-semibold text-foreground">Tautan & File Tambahan</h2>
+            <ul className="mt-3 space-y-2">
+              {material.attachments.map((att, idx) => (
+                <li key={idx}>
+                  <a
+                    href={att.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group flex items-center gap-2 rounded-lg border border-border bg-background px-3 py-2 text-sm text-foreground transition-colors hover:border-primary/40 hover:bg-accent"
+                  >
+                    <ExternalLink className="h-4 w-4 shrink-0 text-primary" />
+                    <span className="flex-1 truncate">{att.label || att.url}</span>
+                    <span className="text-xs text-muted-foreground group-hover:text-primary">Buka</span>
+                  </a>
+                </li>
+              ))}
+            </ul>
           </div>
         )}
 

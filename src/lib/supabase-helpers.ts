@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 
 export interface ClassItem {
   id: string;
@@ -8,6 +9,11 @@ export interface ClassItem {
   icon: string | null;
   sort_order: number | null;
   created_at: string;
+}
+
+export interface AttachmentLink {
+  label: string;
+  url: string;
 }
 
 export interface MaterialItem {
@@ -21,6 +27,7 @@ export interface MaterialItem {
   video_url: string | null;
   is_published: boolean | null;
   sort_order: number | null;
+  attachments: AttachmentLink[] | null;
   created_at: string;
   updated_at: string;
 }
@@ -46,6 +53,21 @@ export async function getClassById(id: string): Promise<ClassItem | null> {
   return data;
 }
 
+function parseAttachments(value: unknown): AttachmentLink[] {
+  if (!Array.isArray(value)) return [];
+  return value
+    .filter((v): v is { label?: unknown; url?: unknown } => typeof v === "object" && v !== null)
+    .map((v) => ({
+      label: typeof v.label === "string" ? v.label : "",
+      url: typeof v.url === "string" ? v.url : "",
+    }))
+    .filter((a) => a.url);
+}
+
+function mapMaterial(row: Record<string, unknown>): MaterialItem {
+  return { ...(row as unknown as MaterialItem), attachments: parseAttachments(row.attachments) };
+}
+
 export async function getMaterialsByClassId(classId: string): Promise<MaterialItem[]> {
   const { data, error } = await supabase
     .from("materials")
@@ -55,7 +77,7 @@ export async function getMaterialsByClassId(classId: string): Promise<MaterialIt
     .order("sort_order", { ascending: true })
     .order("created_at", { ascending: false });
   if (error) throw error;
-  return data || [];
+  return (data || []).map(mapMaterial);
 }
 
 export async function getMaterialById(id: string): Promise<MaterialItem | null> {
@@ -65,7 +87,7 @@ export async function getMaterialById(id: string): Promise<MaterialItem | null> 
     .eq("id", id)
     .single();
   if (error) return null;
-  return data;
+  return data ? mapMaterial(data) : null;
 }
 
 // Admin queries
@@ -75,7 +97,7 @@ export async function getAllMaterials(): Promise<MaterialItem[]> {
     .select("*")
     .order("created_at", { ascending: false });
   if (error) throw error;
-  return data || [];
+  return (data || []).map(mapMaterial);
 }
 
 export async function createClass(classData: { name: string; description?: string; grade: string; icon?: string }) {
@@ -104,14 +126,22 @@ export async function createMaterial(material: {
   file_url?: string;
   video_url?: string;
   is_published?: boolean;
+  attachments?: AttachmentLink[];
 }) {
-  const { data, error } = await supabase.from("materials").insert(material).select().single();
+  const { attachments, ...rest } = material;
+  const payload = { ...rest, attachments: (attachments ?? []) as unknown as Json };
+  const { data, error } = await supabase.from("materials").insert(payload).select().single();
   if (error) throw error;
   return data;
 }
 
 export async function updateMaterial(id: string, material: Partial<MaterialItem>) {
-  const { data, error } = await supabase.from("materials").update(material).eq("id", id).select().single();
+  const { attachments, ...rest } = material;
+  const payload = {
+    ...rest,
+    ...(attachments !== undefined ? { attachments: attachments as unknown as Json } : {}),
+  };
+  const { data, error } = await supabase.from("materials").update(payload).eq("id", id).select().single();
   if (error) throw error;
   return data;
 }
