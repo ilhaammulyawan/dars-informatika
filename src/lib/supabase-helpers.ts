@@ -137,8 +137,10 @@ export async function createMaterial(material: {
 
 export async function updateMaterial(id: string, material: Partial<MaterialItem>) {
   const { attachments, ...rest } = material;
-  const payload: Record<string, unknown> = { ...rest };
-  if (attachments !== undefined) payload.attachments = attachments as unknown as Json;
+  const payload = {
+    ...rest,
+    ...(attachments !== undefined ? { attachments: attachments as unknown as Json } : {}),
+  };
   const { data, error } = await supabase.from("materials").update(payload).eq("id", id).select().single();
   if (error) throw error;
   return data;
