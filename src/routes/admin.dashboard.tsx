@@ -398,6 +398,57 @@ function AdminDashboard() {
                   )}
                 </div>
               </div>
+              <div>
+                <div className="mb-1 flex items-center justify-between">
+                  <label className="block text-sm font-medium text-foreground">Tautan File / Link Tambahan</label>
+                  <button
+                    type="button"
+                    onClick={() => setMatAttachments([...matAttachments, { label: "", url: "" }])}
+                    className="flex items-center gap-1 rounded-md border border-input bg-background px-2 py-1 text-xs font-medium text-foreground hover:bg-accent"
+                  >
+                    <Plus className="h-3 w-3" /> Tambah Tautan
+                  </button>
+                </div>
+                {matAttachments.length === 0 ? (
+                  <p className="text-xs text-muted-foreground">Belum ada tautan. Klik "Tambah Tautan" untuk menambahkan link Google Drive, dokumen, dsb.</p>
+                ) : (
+                  <div className="space-y-2">
+                    {matAttachments.map((att, idx) => (
+                      <div key={idx} className="flex items-center gap-2">
+                        <Link2 className="h-4 w-4 shrink-0 text-muted-foreground" />
+                        <input
+                          value={att.label}
+                          onChange={(e) => {
+                            const next = [...matAttachments];
+                            next[idx] = { ...next[idx], label: e.target.value };
+                            setMatAttachments(next);
+                          }}
+                          placeholder="Label (opsional)"
+                          className="h-9 w-1/3 rounded-lg border border-input bg-background px-2 text-sm"
+                        />
+                        <input
+                          value={att.url}
+                          onChange={(e) => {
+                            const next = [...matAttachments];
+                            next[idx] = { ...next[idx], url: e.target.value };
+                            setMatAttachments(next);
+                          }}
+                          placeholder="https://..."
+                          className="h-9 flex-1 rounded-lg border border-input bg-background px-2 text-sm"
+                        />
+                        <button
+                          type="button"
+                          onClick={() => setMatAttachments(matAttachments.filter((_, i) => i !== idx))}
+                          className="rounded-md p-1.5 text-muted-foreground hover:bg-destructive/10 hover:text-destructive"
+                          title="Hapus tautan"
+                        >
+                          <Trash2 className="h-4 w-4" />
+                        </button>
+                      </div>
+                    ))}
+                  </div>
+                )}
+              </div>
               <div className="flex items-center gap-2">
                 <input type="checkbox" id="published" checked={matPublished} onChange={(e) => setMatPublished(e.target.checked)} className="h-4 w-4 rounded border-input accent-primary" />
                 <label htmlFor="published" className="text-sm text-foreground">Publikasikan</label>
