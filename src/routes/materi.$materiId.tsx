@@ -87,9 +87,18 @@ function MateriPage() {
           <p className="mt-4 text-muted-foreground leading-relaxed">{material.description}</p>
         )}
 
+        {/* Content */}
+        {material.content && (
+          <div
+            className="material-content mt-8 border-t border-border pt-8"
+            dangerouslySetInnerHTML={{ __html: material.content }}
+          />
+        )}
+
         {/* Video embed */}
         {material.video_url && (
-          <div className="mt-6">
+          <div className="mt-8 border-t border-border pt-8">
+            <h2 className="mb-3 text-sm font-semibold text-foreground">Video Pembelajaran</h2>
             <div className="relative w-full overflow-hidden rounded-xl" style={{ paddingBottom: "56.25%" }}>
               <iframe
                 src={getYoutubeEmbedUrl(material.video_url)}
@@ -104,7 +113,8 @@ function MateriPage() {
 
         {/* File download */}
         {material.file_url && (
-          <div className="mt-6">
+          <div className="mt-8 border-t border-border pt-8">
+            <h2 className="mb-3 text-sm font-semibold text-foreground">File Materi</h2>
             <a
               href={material.file_url}
               target="_blank"
@@ -119,7 +129,7 @@ function MateriPage() {
 
         {/* Attachment links */}
         {material.attachments && material.attachments.length > 0 && (
-          <div className="mt-6 rounded-xl border border-border bg-card p-5">
+          <div className="mt-8 border-t border-border pt-8">
             <h2 className="text-sm font-semibold text-foreground">Tautan & File Tambahan</h2>
             <ul className="mt-3 space-y-2">
               {material.attachments.map((att, idx) => (
@@ -138,14 +148,6 @@ function MateriPage() {
               ))}
             </ul>
           </div>
-        )}
-
-        {/* Content */}
-        {material.content && (
-          <div
-            className="material-content mt-8 border-t border-border pt-8"
-            dangerouslySetInnerHTML={{ __html: material.content }}
-          />
         )}
       </article>
     </div>
