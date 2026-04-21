@@ -6,7 +6,7 @@
   "type": "module",
   "scripts": {
   "dev": "vite dev",
-  "build": "vite build && node -e \"const fs=require('fs');const f='dist/client/wrangler.json';const c=JSON.parse(fs.readFileSync(f));if(c.triggers&&Object.keys(c.triggers).length===0){c.triggers={crons:[]}}delete c.assets;fs.writeFileSync(f,JSON.stringify(c,null,2))\"",
+  "build": "vite build && node scripts/prepare-cloudflare-pages.mjs",
   "build:dev": "vite build --mode development",
   "preview": "vite preview",
   "lint": "eslint .",
