@@ -2,6 +2,8 @@ import fs from "node:fs";
 import path from "node:path";
 
 const clientDir = path.resolve("dist/client");
+const serverAssetsDir = path.resolve("dist/server/assets");
+const clientAssetsDir = path.join(clientDir, "assets");
 const serverEntry = path.resolve("dist/server/server.js");
 const workerEntry = path.join(clientDir, "_worker.js");
 const wranglerFile = path.join(clientDir, "wrangler.json");
@@ -15,6 +17,11 @@ if (!fs.existsSync(serverEntry)) {
 }
 
 fs.copyFileSync(serverEntry, workerEntry);
+
+if (fs.existsSync(serverAssetsDir)) {
+  fs.mkdirSync(clientAssetsDir, { recursive: true });
+  fs.cpSync(serverAssetsDir, clientAssetsDir, { recursive: true, force: false, errorOnExist: false });
+}
 
 if (fs.existsSync(wranglerFile)) {
   const config = JSON.parse(fs.readFileSync(wranglerFile, "utf8"));
