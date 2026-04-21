@@ -5,5 +5,8 @@
   "pages_build_output_dir": "dist/client",
   "observability": {
     "enabled": true
+  },
+"triggers": {
+    "crons": []
   }
 }
