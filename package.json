@@ -5,15 +5,13 @@
   "sideEffects": false,
   "type": "module",
   "scripts": {
-    "build": "vite build",
-    "postbuild": "node -e \"const fs=require('fs');const f='dist/client/wrangler.json';const c=JSON.parse(fs.readFileSync(f));if(c.triggers&&Object.keys(c.triggers).length===0){c.triggers={crons:[]}}fs.writeFileSync(f,JSON.stringify(c,null,2))\""
-    "dev": "vite dev",
-    "build": "vite build",
-    "build:dev": "vite build --mode development",
-    "preview": "vite preview",
-    "lint": "eslint .",
-    "format": "prettier --write ."
-  },
+  "dev": "vite dev",
+  "build": "vite build && node -e \"const fs=require('fs');const f='dist/client/wrangler.json';const c=JSON.parse(fs.readFileSync(f));if(c.triggers&&Object.keys(c.triggers).length===0){c.triggers={crons:[]}}fs.writeFileSync(f,JSON.stringify(c,null,2))\"",
+  "build:dev": "vite build --mode development",
+  "preview": "vite preview",
+  "lint": "eslint .",
+  "format": "prettier --write ."
+},
   "dependencies": {
     "@cloudflare/vite-plugin": "^1.25.5",
     "@hookform/resolvers": "^5.2.2",
