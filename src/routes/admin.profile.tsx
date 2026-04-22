@@ -205,23 +205,23 @@ function AdminProfilePage() {
             <h2 className="mb-3 text-sm font-semibold text-foreground">Sosial Media</h2>
             <div className="grid gap-3 sm:grid-cols-2">
               <div>
-                <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-foreground"><Instagram className="h-3.5 w-3.5" /> Instagram</label>
+                <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-foreground"><InstagramIcon className="h-3.5 w-3.5" /> Instagram</label>
                 <input value={instagramUrl} onChange={(e) => setInstagramUrl(e.target.value)} className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm" placeholder="https://instagram.com/username" />
               </div>
               <div>
-                <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-foreground"><Facebook className="h-3.5 w-3.5" /> Facebook</label>
+                <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-foreground"><FacebookIcon className="h-3.5 w-3.5" /> Facebook</label>
                 <input value={facebookUrl} onChange={(e) => setFacebookUrl(e.target.value)} className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm" placeholder="https://facebook.com/username" />
               </div>
               <div>
-                <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-foreground"><Youtube className="h-3.5 w-3.5" /> YouTube</label>
+                <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-foreground"><YoutubeIcon className="h-3.5 w-3.5" /> YouTube</label>
                 <input value={youtubeUrl} onChange={(e) => setYoutubeUrl(e.target.value)} className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm" placeholder="https://youtube.com/@channel" />
               </div>
               <div>
-                <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-foreground"><Music2 className="h-3.5 w-3.5" /> TikTok</label>
+                <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-foreground"><TiktokIcon className="h-3.5 w-3.5" /> TikTok</label>
                 <input value={tiktokUrl} onChange={(e) => setTiktokUrl(e.target.value)} className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm" placeholder="https://tiktok.com/@username" />
               </div>
               <div>
-                <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-foreground"><Linkedin className="h-3.5 w-3.5" /> LinkedIn</label>
+                <label className="mb-1 flex items-center gap-1.5 text-sm font-medium text-foreground"><LinkedinIcon className="h-3.5 w-3.5" /> LinkedIn</label>
                 <input value={linkedinUrl} onChange={(e) => setLinkedinUrl(e.target.value)} className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm" placeholder="https://linkedin.com/in/username" />
               </div>
               <div>
