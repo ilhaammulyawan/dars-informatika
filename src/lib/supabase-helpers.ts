@@ -193,6 +193,12 @@ export async function upsertTeacherProfile(profile: Partial<TeacherProfile> & { 
       email: profile.email,
       phone: profile.phone,
       photo_url: profile.photo_url,
+      instagram_url: profile.instagram_url,
+      facebook_url: profile.facebook_url,
+      youtube_url: profile.youtube_url,
+      tiktok_url: profile.tiktok_url,
+      linkedin_url: profile.linkedin_url,
+      website_url: profile.website_url,
     };
     const { data, error } = await supabase
       .from("teacher_profile")
@@ -213,6 +219,12 @@ export async function upsertTeacherProfile(profile: Partial<TeacherProfile> & { 
       email: profile.email,
       phone: profile.phone,
       photo_url: profile.photo_url,
+      instagram_url: profile.instagram_url,
+      facebook_url: profile.facebook_url,
+      youtube_url: profile.youtube_url,
+      tiktok_url: profile.tiktok_url,
+      linkedin_url: profile.linkedin_url,
+      website_url: profile.website_url,
     })
     .select()
     .single();
