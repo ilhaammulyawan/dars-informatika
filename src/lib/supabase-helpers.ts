@@ -161,6 +161,12 @@ export interface TeacherProfile {
   email: string | null;
   phone: string | null;
   photo_url: string | null;
+  instagram_url: string | null;
+  facebook_url: string | null;
+  youtube_url: string | null;
+  tiktok_url: string | null;
+  linkedin_url: string | null;
+  website_url: string | null;
   extras: unknown;
   created_at: string;
   updated_at: string;
