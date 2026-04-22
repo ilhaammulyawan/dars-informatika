@@ -7,7 +7,8 @@ import {
   uploadTeacherPhoto,
   type TeacherProfile,
 } from "@/lib/supabase-helpers";
-import { BookOpen, ArrowLeft, Save, Upload, LogOut, Eye, Instagram, Facebook, Youtube, Linkedin, Globe, Music2 } from "lucide-react";
+import { BookOpen, ArrowLeft, Save, Upload, LogOut, Eye, Globe } from "lucide-react";
+import { InstagramIcon, FacebookIcon, YoutubeIcon, LinkedinIcon, TiktokIcon } from "@/components/SocialIcons";
 
 export const Route = createFileRoute("/admin/profile")({
   component: AdminProfilePage,

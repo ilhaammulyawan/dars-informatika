@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { GraduationCap, Award, Users, BookOpen, Instagram, Facebook, Youtube, Linkedin, Globe, Music2 } from "lucide-react";
+import { GraduationCap, Award, Users, BookOpen, Globe } from "lucide-react";
+import { InstagramIcon, FacebookIcon, YoutubeIcon, LinkedinIcon, TiktokIcon } from "@/components/SocialIcons";
 import { getTeacherProfile, type TeacherProfile as TP } from "@/lib/supabase-helpers";
 
 export function TeacherProfile() {
@@ -81,11 +82,11 @@ export function TeacherProfile() {
             {/* Social media */}
             {(() => {
               const socials = [
-                { url: profile.instagram_url, Icon: Instagram, label: "Instagram" },
-                { url: profile.facebook_url, Icon: Facebook, label: "Facebook" },
-                { url: profile.youtube_url, Icon: Youtube, label: "YouTube" },
-                { url: profile.tiktok_url, Icon: Music2, label: "TikTok" },
-                { url: profile.linkedin_url, Icon: Linkedin, label: "LinkedIn" },
+                { url: profile.instagram_url, Icon: InstagramIcon, label: "Instagram" },
+                { url: profile.facebook_url, Icon: FacebookIcon, label: "Facebook" },
+                { url: profile.youtube_url, Icon: YoutubeIcon, label: "YouTube" },
+                { url: profile.tiktok_url, Icon: TiktokIcon, label: "TikTok" },
+                { url: profile.linkedin_url, Icon: LinkedinIcon, label: "LinkedIn" },
                 { url: profile.website_url, Icon: Globe, label: "Website" },
               ].filter((s) => s.url);
               if (socials.length === 0) return null;
