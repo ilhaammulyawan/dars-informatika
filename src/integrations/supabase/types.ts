@@ -107,12 +107,18 @@ export type Database = {
           education: string | null
           email: string | null
           extras: Json | null
+          facebook_url: string | null
           full_name: string
           id: string
+          instagram_url: string | null
+          linkedin_url: string | null
           phone: string | null
           photo_url: string | null
           position: string | null
+          tiktok_url: string | null
           updated_at: string
+          website_url: string | null
+          youtube_url: string | null
         }
         Insert: {
           bio?: string | null
@@ -120,12 +126,18 @@ export type Database = {
           education?: string | null
           email?: string | null
           extras?: Json | null
+          facebook_url?: string | null
           full_name: string
           id?: string
+          instagram_url?: string | null
+          linkedin_url?: string | null
           phone?: string | null
           photo_url?: string | null
           position?: string | null
+          tiktok_url?: string | null
           updated_at?: string
+          website_url?: string | null
+          youtube_url?: string | null
         }
         Update: {
           bio?: string | null
@@ -133,12 +145,18 @@ export type Database = {
           education?: string | null
           email?: string | null
           extras?: Json | null
+          facebook_url?: string | null
           full_name?: string
           id?: string
+          instagram_url?: string | null
+          linkedin_url?: string | null
           phone?: string | null
           photo_url?: string | null
           position?: string | null
+          tiktok_url?: string | null
           updated_at?: string
+          website_url?: string | null
+          youtube_url?: string | null
         }
         Relationships: []
       }

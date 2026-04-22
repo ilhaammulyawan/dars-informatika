@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { GraduationCap, Award, Users, BookOpen } from "lucide-react";
+import { GraduationCap, Award, Users, BookOpen, Globe } from "lucide-react";
+import { InstagramIcon, FacebookIcon, YoutubeIcon, LinkedinIcon, TiktokIcon } from "@/components/SocialIcons";
 import { getTeacherProfile, type TeacherProfile as TP } from "@/lib/supabase-helpers";
 
 export function TeacherProfile() {
@@ -77,6 +78,36 @@ export function TeacherProfile() {
                 {profile.bio}
               </p>
             )}
+
+            {/* Social media */}
+            {(() => {
+              const socials = [
+                { url: profile.instagram_url, Icon: InstagramIcon, label: "Instagram" },
+                { url: profile.facebook_url, Icon: FacebookIcon, label: "Facebook" },
+                { url: profile.youtube_url, Icon: YoutubeIcon, label: "YouTube" },
+                { url: profile.tiktok_url, Icon: TiktokIcon, label: "TikTok" },
+                { url: profile.linkedin_url, Icon: LinkedinIcon, label: "LinkedIn" },
+                { url: profile.website_url, Icon: Globe, label: "Website" },
+              ].filter((s) => s.url);
+              if (socials.length === 0) return null;
+              return (
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {socials.map(({ url, Icon, label }) => (
+                    <a
+                      key={label}
+                      href={url as string}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={label}
+                      title={label}
+                      className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border bg-background text-muted-foreground transition-colors hover:border-primary hover:bg-primary hover:text-primary-foreground"
+                    >
+                      <Icon className="h-4 w-4" />
+                    </a>
+                  ))}
+                </div>
+              );
+            })()}
           </div>
         </div>
       </div>

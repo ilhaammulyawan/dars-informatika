@@ -161,6 +161,12 @@ export interface TeacherProfile {
   email: string | null;
   phone: string | null;
   photo_url: string | null;
+  instagram_url: string | null;
+  facebook_url: string | null;
+  youtube_url: string | null;
+  tiktok_url: string | null;
+  linkedin_url: string | null;
+  website_url: string | null;
   extras: unknown;
   created_at: string;
   updated_at: string;
@@ -187,6 +193,12 @@ export async function upsertTeacherProfile(profile: Partial<TeacherProfile> & { 
       email: profile.email,
       phone: profile.phone,
       photo_url: profile.photo_url,
+      instagram_url: profile.instagram_url,
+      facebook_url: profile.facebook_url,
+      youtube_url: profile.youtube_url,
+      tiktok_url: profile.tiktok_url,
+      linkedin_url: profile.linkedin_url,
+      website_url: profile.website_url,
     };
     const { data, error } = await supabase
       .from("teacher_profile")
@@ -207,6 +219,12 @@ export async function upsertTeacherProfile(profile: Partial<TeacherProfile> & { 
       email: profile.email,
       phone: profile.phone,
       photo_url: profile.photo_url,
+      instagram_url: profile.instagram_url,
+      facebook_url: profile.facebook_url,
+      youtube_url: profile.youtube_url,
+      tiktok_url: profile.tiktok_url,
+      linkedin_url: profile.linkedin_url,
+      website_url: profile.website_url,
     })
     .select()
     .single();
