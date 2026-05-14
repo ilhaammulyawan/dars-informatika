@@ -1,4 +1,5 @@
 import { supabase } from "@/integrations/supabase/client";
+import type { Json } from "@/integrations/supabase/types";
 import {
   BookOpen, GraduationCap, Sparkles, Code2, Lightbulb, Rocket, Target,
   Brain, Cpu, Database, Cloud, Globe, Heart, Star, Zap, Trophy,
@@ -117,16 +118,17 @@ export async function saveHomeContent(content: HomeContent): Promise<void> {
     .select("id")
     .eq("key", HOME_KEY)
     .maybeSingle();
+  const value = content as unknown as Json;
   if (existing?.id) {
     const { error } = await supabase
       .from("site_settings")
-      .update({ value: content as unknown as Record<string, unknown> })
+      .update({ value })
       .eq("id", existing.id);
     if (error) throw error;
   } else {
     const { error } = await supabase
       .from("site_settings")
-      .insert({ key: HOME_KEY, value: content as unknown as Record<string, unknown> });
+      .insert({ key: HOME_KEY, value });
     if (error) throw error;
   }
 }
