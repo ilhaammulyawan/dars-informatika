@@ -8,7 +8,7 @@ import {
 } from "@/lib/supabase-helpers";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import {
-  BookOpen, Plus, Pencil, Trash2, LogOut, Save, X, Upload, Eye, UserCog, Link2,
+  BookOpen, Plus, Pencil, Trash2, LogOut, Save, X, Upload, Eye, UserCog, Link2, LayoutTemplate,
 } from "lucide-react";
 
 export const Route = createFileRoute("/admin/dashboard")({
@@ -179,6 +179,9 @@ function AdminDashboard() {
             <span className="rounded bg-accent px-2 py-0.5 text-xs font-medium text-accent-foreground">Admin</span>
           </div>
           <div className="flex items-center gap-3">
+            <Link to="/admin/site" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
+              <LayoutTemplate className="h-4 w-4" /> Konten
+            </Link>
             <Link to="/admin/profile" className="text-sm text-muted-foreground hover:text-foreground flex items-center gap-1">
               <UserCog className="h-4 w-4" /> Profil
             </Link>
