@@ -13,6 +13,7 @@ import { Route as IndexRouteImport } from './routes/index'
 import { Route as AdminIndexRouteImport } from './routes/admin.index'
 import { Route as MateriMateriIdRouteImport } from './routes/materi.$materiId'
 import { Route as KelasKelasIdRouteImport } from './routes/kelas.$kelasId'
+import { Route as AdminSiteRouteImport } from './routes/admin.site'
 import { Route as AdminProfileRouteImport } from './routes/admin.profile'
 import { Route as AdminDashboardRouteImport } from './routes/admin.dashboard'
 
@@ -36,6 +37,11 @@ const KelasKelasIdRoute = KelasKelasIdRouteImport.update({
   path: '/kelas/$kelasId',
   getParentRoute: () => rootRouteImport,
 } as any)
+const AdminSiteRoute = AdminSiteRouteImport.update({
+  id: '/admin/site',
+  path: '/admin/site',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const AdminProfileRoute = AdminProfileRouteImport.update({
   id: '/admin/profile',
   path: '/admin/profile',
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/profile': typeof AdminProfileRoute
+  '/admin/site': typeof AdminSiteRoute
   '/kelas/$kelasId': typeof KelasKelasIdRoute
   '/materi/$materiId': typeof MateriMateriIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -59,6 +66,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/profile': typeof AdminProfileRoute
+  '/admin/site': typeof AdminSiteRoute
   '/kelas/$kelasId': typeof KelasKelasIdRoute
   '/materi/$materiId': typeof MateriMateriIdRoute
   '/admin': typeof AdminIndexRoute
@@ -68,6 +76,7 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/admin/dashboard': typeof AdminDashboardRoute
   '/admin/profile': typeof AdminProfileRoute
+  '/admin/site': typeof AdminSiteRoute
   '/kelas/$kelasId': typeof KelasKelasIdRoute
   '/materi/$materiId': typeof MateriMateriIdRoute
   '/admin/': typeof AdminIndexRoute
@@ -78,6 +87,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/dashboard'
     | '/admin/profile'
+    | '/admin/site'
     | '/kelas/$kelasId'
     | '/materi/$materiId'
     | '/admin/'
@@ -86,6 +96,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/dashboard'
     | '/admin/profile'
+    | '/admin/site'
     | '/kelas/$kelasId'
     | '/materi/$materiId'
     | '/admin'
@@ -94,6 +105,7 @@ export interface FileRouteTypes {
     | '/'
     | '/admin/dashboard'
     | '/admin/profile'
+    | '/admin/site'
     | '/kelas/$kelasId'
     | '/materi/$materiId'
     | '/admin/'
@@ -103,6 +115,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AdminDashboardRoute: typeof AdminDashboardRoute
   AdminProfileRoute: typeof AdminProfileRoute
+  AdminSiteRoute: typeof AdminSiteRoute
   KelasKelasIdRoute: typeof KelasKelasIdRoute
   MateriMateriIdRoute: typeof MateriMateriIdRoute
   AdminIndexRoute: typeof AdminIndexRoute
@@ -138,6 +151,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof KelasKelasIdRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/admin/site': {
+      id: '/admin/site'
+      path: '/admin/site'
+      fullPath: '/admin/site'
+      preLoaderRoute: typeof AdminSiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/admin/profile': {
       id: '/admin/profile'
       path: '/admin/profile'
@@ -159,6 +179,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AdminDashboardRoute: AdminDashboardRoute,
   AdminProfileRoute: AdminProfileRoute,
+  AdminSiteRoute: AdminSiteRoute,
   KelasKelasIdRoute: KelasKelasIdRoute,
   MateriMateriIdRoute: MateriMateriIdRoute,
   AdminIndexRoute: AdminIndexRoute,
@@ -166,12 +187,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-  }
-}
