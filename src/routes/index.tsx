@@ -101,29 +101,44 @@ function Index() {
       </section>
 
       {/* Class List */}
-      <section className="mx-auto max-w-5xl px-4 py-12">
-        <h2 className="mb-8 text-2xl font-bold text-foreground">{content.classes_title}</h2>
+      <section className="mx-auto max-w-5xl px-4 py-16">
+        <div className="mb-10 flex flex-col items-center text-center">
+          <span className="mb-3 inline-flex items-center gap-1.5 rounded-full bg-primary/10 px-3 py-1 text-xs font-semibold uppercase tracking-wider text-primary">
+            <BookOpen className="h-3.5 w-3.5" />
+            Materi Pelajaran
+          </span>
+          <h2 className="text-3xl font-bold text-foreground sm:text-4xl">{content.classes_title}</h2>
+          <p className="mt-3 max-w-xl text-sm text-muted-foreground sm:text-base">
+            Pilih kelas untuk mulai menjelajahi materi pembelajaran informatika.
+          </p>
+        </div>
 
         {loading ? (
-          <div className="grid gap-4 sm:grid-cols-2">
+          <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
             {[1, 2, 3, 4].map((i) => (
-              <div key={i} className="h-24 animate-pulse rounded-xl bg-muted" />
+              <div key={i} className="h-32 animate-pulse rounded-2xl bg-muted" />
             ))}
           </div>
         ) : classes.length === 0 ? (
-          <div className="rounded-xl border border-border bg-card p-12 text-center">
+          <div className="rounded-2xl border border-dashed border-border bg-card p-12 text-center">
             <BookOpen className="mx-auto h-12 w-12 text-muted-foreground" />
             <h3 className="mt-4 text-lg font-semibold text-foreground">Belum ada kelas</h3>
             <p className="mt-2 text-sm text-muted-foreground">Admin belum menambahkan kelas. Silakan kembali lagi nanti.</p>
           </div>
         ) : (
-          <div className="space-y-8">
+          <div className="space-y-10">
             {grades.map((grade) => (
               <div key={grade}>
-                <h3 className="mb-3 text-sm font-semibold uppercase tracking-wider text-muted-foreground">
-                  Kelas {grade}
-                </h3>
-                <div className="grid gap-3 sm:grid-cols-2">
+                <div className="mb-4 flex items-center gap-3">
+                  <span className="inline-flex items-center rounded-full border border-primary/20 bg-primary/5 px-3 py-1 text-xs font-bold uppercase tracking-wider text-primary">
+                    Kelas {grade}
+                  </span>
+                  <div className="h-px flex-1 bg-gradient-to-r from-border to-transparent" />
+                  <span className="text-xs font-medium text-muted-foreground">
+                    {grouped[grade].length} {grouped[grade].length > 1 ? "kelas" : "kelas"}
+                  </span>
+                </div>
+                <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                   {grouped[grade].map((c) => (
                     <ClassCard key={c.id} classItem={c} />
                   ))}
