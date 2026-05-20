@@ -16,6 +16,8 @@ export interface AttachmentLink {
   url: string;
 }
 
+export type DisplayMode = "vertical" | "slides";
+
 export interface MaterialItem {
   id: string;
   class_id: string;
@@ -28,6 +30,7 @@ export interface MaterialItem {
   is_published: boolean | null;
   sort_order: number | null;
   attachments: AttachmentLink[] | null;
+  display_mode: DisplayMode | null;
   created_at: string;
   updated_at: string;
 }
