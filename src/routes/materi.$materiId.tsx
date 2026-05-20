@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { PublicHeader } from "@/components/PublicHeader";
+import { SlideViewer } from "@/components/SlideViewer";
 import { getMaterialById, getClassById, type MaterialItem, type ClassItem } from "@/lib/supabase-helpers";
 import { ArrowLeft, Download, Calendar, ExternalLink } from "lucide-react";
 
@@ -105,10 +106,16 @@ function MateriPage() {
 
         {/* Content */}
         {material.content && (
-          <div
-            className="material-content mt-8 border-t border-border pt-8"
-            dangerouslySetInnerHTML={{ __html: material.content }}
-          />
+          material.display_mode === "slides" ? (
+            <div className="mt-8">
+              <SlideViewer content={material.content} />
+            </div>
+          ) : (
+            <div
+              className="material-content mt-8 border-t border-border pt-8"
+              dangerouslySetInnerHTML={{ __html: material.content }}
+            />
+          )
         )}
 
         {/* File download */}

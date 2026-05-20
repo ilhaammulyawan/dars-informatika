@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   getClasses, getAllMaterials, createClass, updateClass, deleteClass,
   createMaterial, updateMaterial, deleteMaterial, uploadFile,
-  type ClassItem, type MaterialItem, type AttachmentLink,
+  type ClassItem, type MaterialItem, type AttachmentLink, type DisplayMode,
 } from "@/lib/supabase-helpers";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import {
@@ -48,6 +48,7 @@ function AdminDashboard() {
   const [matFileUrl, setMatFileUrl] = useState("");
   const [matAttachments, setMatAttachments] = useState<AttachmentLink[]>([]);
   const [matPublished, setMatPublished] = useState(true);
+  const [matDisplayMode, setMatDisplayMode] = useState<DisplayMode>("vertical");
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
 
@@ -104,6 +105,7 @@ function AdminDashboard() {
   const openCreateMat = () => {
     setMatTitle(""); setMatDesc(""); setMatContent(""); setMatClassId(classes[0]?.id || "");
     setMatCategory(""); setMatVideoUrl(""); setMatFileUrl(""); setMatAttachments([]); setMatPublished(true);
+    setMatDisplayMode("vertical");
     setEditingMat(null); setMatModal("create");
   };
 
@@ -111,6 +113,7 @@ function AdminDashboard() {
     setMatTitle(m.title); setMatDesc(m.description || ""); setMatContent(m.content || "");
     setMatClassId(m.class_id); setMatCategory(m.category || ""); setMatVideoUrl(m.video_url || "");
     setMatFileUrl(m.file_url || ""); setMatAttachments(m.attachments || []); setMatPublished(m.is_published ?? true);
+    setMatDisplayMode((m.display_mode as DisplayMode) || "vertical");
     setEditingMat(m); setMatModal("edit");
   };
 
@@ -138,6 +141,7 @@ function AdminDashboard() {
       video_url: matVideoUrl || undefined, file_url: matFileUrl || undefined,
       attachments: cleanAttachments,
       is_published: matPublished,
+      display_mode: matDisplayMode,
     };
     if (matModal === "create") {
       await createMaterial(payload);
@@ -376,6 +380,30 @@ function AdminDashboard() {
               <div>
                 <label className="mb-1 block text-sm font-medium text-foreground">Deskripsi Singkat</label>
                 <textarea value={matDesc} onChange={(e) => setMatDesc(e.target.value)} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" rows={2} placeholder="Deskripsi singkat materi..." />
+              </div>
+              <div>
+                <label className="mb-1 block text-sm font-medium text-foreground">Mode Tampilan</label>
+                <div className="flex gap-2">
+                  {(["vertical", "slides"] as DisplayMode[]).map((mode) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      onClick={() => setMatDisplayMode(mode)}
+                      className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+                        matDisplayMode === mode
+                          ? "border-primary bg-primary/10 text-primary"
+                          : "border-input bg-background text-muted-foreground hover:bg-accent"
+                      }`}
+                    >
+                      {mode === "vertical" ? "📜 Baca vertikal" : "🎞️ Mode slide"}
+                    </button>
+                  ))}
+                </div>
+                {matDisplayMode === "slides" && (
+                  <p className="mt-1.5 text-xs text-muted-foreground">
+                    Gunakan tombol <strong>Divider</strong> (—) di editor untuk memisahkan tiap slide. Judul slide diambil dari heading pertama (H1/H2/H3).
+                  </p>
+                )}
               </div>
               <div>
                 <label className="mb-1 block text-sm font-medium text-foreground">Konten</label>

@@ -16,6 +16,8 @@ export interface AttachmentLink {
   url: string;
 }
 
+export type DisplayMode = "vertical" | "slides";
+
 export interface MaterialItem {
   id: string;
   class_id: string;
@@ -28,6 +30,7 @@ export interface MaterialItem {
   is_published: boolean | null;
   sort_order: number | null;
   attachments: AttachmentLink[] | null;
+  display_mode: DisplayMode | null;
   created_at: string;
   updated_at: string;
 }
@@ -127,6 +130,7 @@ export async function createMaterial(material: {
   video_url?: string;
   is_published?: boolean;
   attachments?: AttachmentLink[];
+  display_mode?: DisplayMode;
 }) {
   const { attachments, ...rest } = material;
   const payload = { ...rest, attachments: (attachments ?? []) as unknown as Json };
@@ -141,7 +145,7 @@ export async function updateMaterial(id: string, material: Partial<MaterialItem>
     ...rest,
     ...(attachments !== undefined ? { attachments: attachments as unknown as Json } : {}),
   };
-  const { data, error } = await supabase.from("materials").update(payload).eq("id", id).select().single();
+  const { data, error } = await supabase.from("materials").update(payload as never).eq("id", id).select().single();
   if (error) throw error;
   return data;
 }
