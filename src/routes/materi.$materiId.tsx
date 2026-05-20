@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useState, useEffect } from "react";
 import { PublicHeader } from "@/components/PublicHeader";
+import { SlideViewer } from "@/components/SlideViewer";
 import { getMaterialById, getClassById, type MaterialItem, type ClassItem } from "@/lib/supabase-helpers";
 import { ArrowLeft, Download, Calendar, ExternalLink } from "lucide-react";
 
