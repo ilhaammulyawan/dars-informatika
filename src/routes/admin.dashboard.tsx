@@ -48,6 +48,7 @@ function AdminDashboard() {
   const [matFileUrl, setMatFileUrl] = useState("");
   const [matAttachments, setMatAttachments] = useState<AttachmentLink[]>([]);
   const [matPublished, setMatPublished] = useState(true);
+  const [matDisplayMode, setMatDisplayMode] = useState<DisplayMode>("vertical");
   const [uploading, setUploading] = useState(false);
   const [saving, setSaving] = useState(false);
 
