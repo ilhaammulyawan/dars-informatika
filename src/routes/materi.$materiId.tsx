@@ -106,10 +106,16 @@ function MateriPage() {
 
         {/* Content */}
         {material.content && (
-          <div
-            className="material-content mt-8 border-t border-border pt-8"
-            dangerouslySetInnerHTML={{ __html: material.content }}
-          />
+          material.display_mode === "slides" ? (
+            <div className="mt-8">
+              <SlideViewer content={material.content} />
+            </div>
+          ) : (
+            <div
+              className="material-content mt-8 border-t border-border pt-8"
+              dangerouslySetInnerHTML={{ __html: material.content }}
+            />
+          )
         )}
 
         {/* File download */}
