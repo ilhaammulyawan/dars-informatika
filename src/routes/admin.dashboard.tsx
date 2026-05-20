@@ -4,7 +4,7 @@ import { supabase } from "@/integrations/supabase/client";
 import {
   getClasses, getAllMaterials, createClass, updateClass, deleteClass,
   createMaterial, updateMaterial, deleteMaterial, uploadFile,
-  type ClassItem, type MaterialItem, type AttachmentLink,
+  type ClassItem, type MaterialItem, type AttachmentLink, type DisplayMode,
 } from "@/lib/supabase-helpers";
 import { RichTextEditor } from "@/components/RichTextEditor";
 import {
