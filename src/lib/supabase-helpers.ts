@@ -130,6 +130,7 @@ export async function createMaterial(material: {
   video_url?: string;
   is_published?: boolean;
   attachments?: AttachmentLink[];
+  display_mode?: DisplayMode;
 }) {
   const { attachments, ...rest } = material;
   const payload = { ...rest, attachments: (attachments ?? []) as unknown as Json };
