@@ -141,6 +141,7 @@ function AdminDashboard() {
       video_url: matVideoUrl || undefined, file_url: matFileUrl || undefined,
       attachments: cleanAttachments,
       is_published: matPublished,
+      display_mode: matDisplayMode,
     };
     if (matModal === "create") {
       await createMaterial(payload);
