@@ -382,6 +382,30 @@ function AdminDashboard() {
                 <textarea value={matDesc} onChange={(e) => setMatDesc(e.target.value)} className="w-full rounded-lg border border-input bg-background px-3 py-2 text-sm" rows={2} placeholder="Deskripsi singkat materi..." />
               </div>
               <div>
+                <label className="mb-1 block text-sm font-medium text-foreground">Mode Tampilan</label>
+                <div className="flex gap-2">
+                  {(["vertical", "slides"] as DisplayMode[]).map((mode) => (
+                    <button
+                      key={mode}
+                      type="button"
+                      onClick={() => setMatDisplayMode(mode)}
+                      className={`flex-1 rounded-lg border px-3 py-2 text-sm font-medium transition-colors ${
+                        matDisplayMode === mode
+                          ? "border-primary bg-primary/10 text-primary"
+                          : "border-input bg-background text-muted-foreground hover:bg-accent"
+                      }`}
+                    >
+                      {mode === "vertical" ? "📜 Baca vertikal" : "🎞️ Mode slide"}
+                    </button>
+                  ))}
+                </div>
+                {matDisplayMode === "slides" && (
+                  <p className="mt-1.5 text-xs text-muted-foreground">
+                    Gunakan tombol <strong>Divider</strong> (—) di editor untuk memisahkan tiap slide. Judul slide diambil dari heading pertama (H1/H2/H3).
+                  </p>
+                )}
+              </div>
+              <div>
                 <label className="mb-1 block text-sm font-medium text-foreground">Konten</label>
                 <RichTextEditor content={matContent} onChange={setMatContent} />
               </div>
