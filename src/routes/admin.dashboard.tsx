@@ -105,6 +105,7 @@ function AdminDashboard() {
   const openCreateMat = () => {
     setMatTitle(""); setMatDesc(""); setMatContent(""); setMatClassId(classes[0]?.id || "");
     setMatCategory(""); setMatVideoUrl(""); setMatFileUrl(""); setMatAttachments([]); setMatPublished(true);
+    setMatDisplayMode("vertical");
     setEditingMat(null); setMatModal("create");
   };
 
@@ -112,6 +113,7 @@ function AdminDashboard() {
     setMatTitle(m.title); setMatDesc(m.description || ""); setMatContent(m.content || "");
     setMatClassId(m.class_id); setMatCategory(m.category || ""); setMatVideoUrl(m.video_url || "");
     setMatFileUrl(m.file_url || ""); setMatAttachments(m.attachments || []); setMatPublished(m.is_published ?? true);
+    setMatDisplayMode((m.display_mode as DisplayMode) || "vertical");
     setEditingMat(m); setMatModal("edit");
   };
 
