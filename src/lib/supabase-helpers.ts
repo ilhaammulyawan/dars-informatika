@@ -16,7 +16,7 @@ export interface AttachmentLink {
   url: string;
 }
 
-export type DisplayMode = "vertical" | "slides";
+export type DisplayMode = "vertical" | "slides" | "course";
 
 export interface MaterialItem {
   id: string;
