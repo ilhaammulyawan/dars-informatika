@@ -107,7 +107,11 @@ function MateriPage() {
 
         {/* Content */}
         {material.content && (
-          material.display_mode === "slides" ? (
+          material.display_mode === "course" ? (
+            <div className="mt-8">
+              <CourseViewer content={material.content} storageKey={material.id} />
+            </div>
+          ) : material.display_mode === "slides" ? (
             <div className="mt-8">
               <SlideViewer content={material.content} />
             </div>
@@ -118,6 +122,7 @@ function MateriPage() {
             />
           )
         )}
+
 
         {/* File download */}
         {material.file_url && (
