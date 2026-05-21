@@ -1,0 +1,1 @@
+ALTER TABLE public.materials DROP CONSTRAINT IF EXISTS materials_display_mode_check;
