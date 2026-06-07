@@ -154,8 +154,21 @@ function Index() {
 
       {/* Footer */}
       <footer className="border-t border-border bg-card px-4 py-8">
-        <div className="mx-auto max-w-5xl text-center text-sm text-muted-foreground">
-          {renderFooter(content.footer_text)}
+        <div className="mx-auto max-w-5xl space-y-2 text-center text-sm text-muted-foreground">
+          <div>{renderFooter(content.footer_text)}</div>
+          {content.credits_name && (
+            <div>
+              {content.credits_prefix}
+              <a
+                href={content.credits_url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="font-medium text-primary hover:underline"
+              >
+                {content.credits_name}
+              </a>
+            </div>
+          )}
         </div>
       </footer>
     </div>
