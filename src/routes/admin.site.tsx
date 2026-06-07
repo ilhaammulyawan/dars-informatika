@@ -329,6 +329,37 @@ function AdminSitePage() {
           </Field>
         </Section>
 
+        <Section title="Credits Footer">
+          <Field label="Teks Sebelum Link (misal: Built by )">
+            <input
+              value={content.credits_prefix}
+              onChange={(e) => setContent({ ...content, credits_prefix: e.target.value })}
+              className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm"
+              placeholder="Built by "
+            />
+          </Field>
+          <Field label="Teks Link (misal: Mulyawan)">
+            <input
+              value={content.credits_name}
+              onChange={(e) => setContent({ ...content, credits_name: e.target.value })}
+              className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm"
+              placeholder="Mulyawan"
+            />
+          </Field>
+          <Field label="URL Tujuan (misal: https://mulyawan.biz.id)">
+            <input
+              value={content.credits_url}
+              onChange={(e) => setContent({ ...content, credits_url: e.target.value })}
+              className="h-10 w-full rounded-lg border border-input bg-background px-3 text-sm"
+              placeholder="https://example.com"
+              type="url"
+            />
+          </Field>
+          <p className="text-xs text-muted-foreground">
+            Kosongkan "Teks Link" jika ingin menyembunyikan credits.
+          </p>
+        </Section>
+
         <div className="sticky bottom-0 -mx-4 mt-6 border-t border-border bg-card/80 px-4 py-3 backdrop-blur-md">
           <div className="mx-auto flex max-w-3xl justify-end">
             <button

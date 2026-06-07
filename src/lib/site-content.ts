@@ -39,6 +39,9 @@ export interface HomeContent {
   };
   classes_title: string;
   footer_text: string;
+  credits_prefix: string;
+  credits_name: string;
+  credits_url: string;
 }
 
 export const DEFAULT_HOME_CONTENT: HomeContent = {
@@ -67,6 +70,9 @@ export const DEFAULT_HOME_CONTENT: HomeContent = {
   },
   classes_title: "Pilih Kelas",
   footer_text: "© {year} Dars Informatika — Dibuat oleh Guru Informatika",
+  credits_prefix: "Built by ",
+  credits_name: "Mulyawan",
+  credits_url: "https://mulyawan.biz.id",
 };
 
 const HOME_KEY = "home_page";
@@ -99,6 +105,9 @@ function mergeWithDefaults(value: unknown): HomeContent {
     },
     classes_title: v.classes_title ?? d.classes_title,
     footer_text: v.footer_text ?? d.footer_text,
+    credits_prefix: v.credits_prefix ?? d.credits_prefix,
+    credits_name: v.credits_name ?? d.credits_name,
+    credits_url: v.credits_url ?? d.credits_url,
   };
 }
 
